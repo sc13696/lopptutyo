@@ -1,6 +1,6 @@
 import time
 
-from components.input import getch
+from components.input import getch_nonblock
 from components.player import PlayerCls
 from components.world import WorldCls
 from components.render import render, draw
@@ -12,11 +12,12 @@ def main():
     try:
         while True:
             draw(render(world, player))
-            time.sleep(0.05)
-            ch = getch()
-            if ch in ('q', '\x03'):
-                break
-            player.handle_input(ch)
+            ch = getch_nonblock()
+            if ch:
+                if ch in ('q', '\x03'):
+                    break
+                player.handle_input(ch)
+            time.sleep(1/25)
     except KeyboardInterrupt:
         pass
 
