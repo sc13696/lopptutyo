@@ -28,8 +28,6 @@ def render(world: WorldCls, player: PlayerCls):
     scene = [
         [Tile.EMPTY for _ in range(world.width)] for _ in range(world.height)
     ]
-    for (x,y) in world.walls:
-        scene[y][x] = Tile.WALL
     scene[player.y][player.x] = Tile.PLAYER
     return scene
 
