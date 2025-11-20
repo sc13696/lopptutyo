@@ -7,3 +7,16 @@ kuten stash, revert, rebase ja cherry-pick.
 ## Työskentely:
 Kaikki vaiheet tehdään terminaalissa (Git Bash / PowerShell / macOS Terminal) ja
 yhteys GitHubiin muodostetaan SSH:lla.
+
+
+# työn suunitelma:
+- alustavat kommitit
+- feature1
+-- revertoi debug-viestit kommistista
+- feature2
+- merge conflikti (featuret 1+2 ?)
+-- tee myös rebase ennen featureiden mergamista
+-- jemmaa stashiin debug-vesit
+- feature3, poimi yksittäinen kommitti
+-- tägi, versio v1.0
+- PR??? mistä?!
