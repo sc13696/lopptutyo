@@ -16,11 +16,15 @@ class PlayerCls:
         )
 
     def handle_input(self, ch: str):
+        # shooting
+        if ch == ' ':
+            self.world.bullets.append({"x": self.x, "y": self.y - 1})
+            return True
+        # movement
         dx, dy = self.keys[ch]
         if dx == 0 and dy == 0:
             return False
         nx, ny = self.x + dx, self.y + dy
-        # moving
         if self.world.is_within(nx, ny):
             self.x, self.y = nx, ny
         return True
