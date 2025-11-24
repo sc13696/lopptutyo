@@ -20,3 +20,11 @@ yhteys GitHubiin muodostetaan SSH:lla.
 - feature3, poimi yksittäinen kommitti
 -- tägi, versio v1.0
 - PR??? mistä?!
+
+
+# peli
+saa käyntiin komennolla:
+```shell
+ py main.py
+```
+koodi on Python3
