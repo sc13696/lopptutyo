@@ -26,27 +26,33 @@ Tile.map = defaultdict(
 from components.player import PlayerCls
 from components.world import WorldCls
 
+
+class SceneCls:
+    def __init__(self, width: int, height: int):
+        self.xy = [
+            [Tile.EMPTY for _ in range(width)] for _ in range(height)
+        ]
+
 def render(world: WorldCls, player: PlayerCls) -> list[list[Tile]]:
-    scene = [
-        [Tile.EMPTY for _ in range(world.width)] for _ in range(world.height)
-    ]
+    scene = SceneCls(world.width, world.height)
+    scene.score = {"aliens":  len(world.aliens), "bullets": len(world.bullets)}
+
     for a in world.aliens:
         if 0 <= a["y"] < world.height:
-            scene[a["y"]][a["x"]] = Tile.ENEMY
-    bullets = world.bullets
-    for b in bullets:
+            scene.xy[a["y"]][a["x"]] = Tile.ENEMY
+    for b in world.bullets:
         if 0 <= b["y"] < world.height:
-            scene[b["y"]][b["x"]] = Tile.BULLET
-
-    scene[player.y][player.x] = Tile.PLAYER
+            scene.xy[b["y"]][b["x"]] = Tile.BULLET
+    scene.xy[player.y][player.x] = Tile.PLAYER
     return scene
 
 def draw(scene: list[list[Tile]]):
     Tile.map
     clear()
     lines = []
-    for row in scene:
+    for row in scene.xy:
         line = ''.join(Tile.map[t] for t in row)
         lines.append(line)
+    print("\n SCORE: aliens left", scene.score.get("aliens"), ", bullets ",  scene.score.get("bullets"))
     print('\n'.join(lines))
     print("\n 'WASD' to move, 'space' to shoot, 'q/ctr+c' to quit")

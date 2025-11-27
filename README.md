@@ -12,6 +12,7 @@ yhteys GitHubiin muodostetaan SSH:lla.
 # työn suunitelma:
 - alustavat kommitit
 - feature1
+-- enemy-score
 -- revertoi debug-viestit kommistista
 - feature2
 - merge conflikti (featuret 1+2 ?)

@@ -12,7 +12,7 @@ def main():
 
     try:
         while True:
-            draw(render(world, player))
+            draw(render(world, player), ticks, world)
             ch = getch_nonblock()
             if ch:
                 if ch in ('q', '\x03'):
