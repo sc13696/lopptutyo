@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -36,6 +36,7 @@ class SceneCls:
 def render(world: WorldCls, player: PlayerCls) -> list[list[Tile]]:
     scene = SceneCls(world.width, world.height)
     scene.score = {"aliens":  len(world.aliens), "bullets": len(world.bullets)}
+    scene.game_over = False
 
     for a in world.aliens:
         if 0 <= a["y"] < world.height:
@@ -46,12 +47,23 @@ def render(world: WorldCls, player: PlayerCls) -> list[list[Tile]]:
     scene.xy[player.y][player.x] = Tile.PLAYER
     return scene
 
+def overlay_message(scene: list[list[Tile]], msg: str):
+    height, width = len(scene), len(scene[0])
+    y, x = ((height - 1) // 2), (width - len(msg)) // 2
+    for i, ch in enumerate(msg):
+        if 0 <= x + i < width:
+            scene[y][x + i] = ch
+
 def draw(scene: list[list[Tile]]):
-    clear()
+    rows = [[Tile.map[t] for t in row] for row in scene.xy]
+    if scene.game_over:
+        overlay_message(rows, "!!! GAME OVER !!!")
     lines = []
-    for row in scene.xy:
-        line = ''.join(Tile.map[t] for t in row)
+    for row in rows:
+        line = ''.join(row)
         lines.append(line)
-    print("\n SCORE: aliens left", scene.score.get("aliens"), ", bullets ",  scene.score.get("bullets"))
+    lines.append("'WASD' to move, 'space' to shoot, 'q/ctr+c' to quit")
+
+    clear()
     print('\n'.join(lines))
-    print("\n 'WASD' to move, 'space' to shoot, 'q/ctr+c' to quit")
+    sys.stdout.flush()
