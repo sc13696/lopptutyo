@@ -1,6 +1,5 @@
 import time
 
-from components.input import getch_nonblock
 from components.player import PlayerCls
 from components.world import WorldCls
 from components.render import render, draw
@@ -11,15 +10,18 @@ def main():
     ticks = 0
 
     try:
-        while True:
-            draw(render(world, player), ticks, world)
+        while not player.quit:
+            draw(render(world, player))
+            '''
             ch = getch_nonblock()
             if ch:
-                if ch in ('q', '\x03'):
+                if ch in (b'q', b'\x03'):
                     break
                 player.handle_input(ch)
+            '''
             world.update(ticks)
             ticks += 1
+            player.handle_key()
             time.sleep(1/25)
     except KeyboardInterrupt:
         pass

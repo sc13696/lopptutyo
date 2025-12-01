@@ -9,6 +9,9 @@ class WorldCls:
     def is_within(self, x, y):
         return 0 <= x < self.width and 0 <= y < self.height
 
+    def shoot_bullet(self, x: int, y: int):
+        self.bullets.append({"x": x, "y": y - 1})
+
     def update(self, ticks: int):
         # bullets move
         new_bullets = []
