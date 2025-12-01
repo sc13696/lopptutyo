@@ -8,16 +8,16 @@ class PlayerCls:
         self.keys = defaultdict(
             lambda: (0, 0),
             {
-                'w': (0, -1),
-                's': (0, 1),
-                'a': (-1, 0),
-                'd': (1, 0),
+                b'w': (0, -1),
+                b's': (0, 1),
+                b'a': (-1, 0),
+                b'd': (1, 0),
             }
         )
 
     def handle_input(self, ch: str):
         # shooting
-        if ch == ' ':
+        if ch == b' ':
             self.world.bullets.append({"x": self.x, "y": self.y - 1})
             return True
         # movement

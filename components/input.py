@@ -1,4 +1,4 @@
-import sys
+import sys, os
 
 # ----- POSIX (Linux / macOS) -----
 try:
@@ -11,7 +11,7 @@ try:
             old = termios.tcgetattr(fd)
             try:
                 tty.setraw(fd)
-                return sys.stdin.read(1)
+                return os.read(fd, 1)
             finally:
                 termios.tcsetattr(fd, termios.TCSADRAIN, old)
         return None  # no key pressed
@@ -22,5 +22,5 @@ except ImportError:
 
     def getch_nonblock():
         if msvcrt.kbhit():
-            return msvcrt.getch().decode()
+            return msvcrt.getch()
         return None

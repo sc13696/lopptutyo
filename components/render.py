@@ -42,7 +42,6 @@ def render(world: WorldCls, player: PlayerCls) -> list[list[Tile]]:
     return scene
 
 def draw(scene: list[list[Tile]]):
-    Tile.map
     clear()
     lines = []
     for row in scene:

@@ -15,7 +15,7 @@ def main():
             draw(render(world, player))
             ch = getch_nonblock()
             if ch:
-                if ch in ('q', '\x03'):
+                if ch in (b'q', b'\x03'):
                     break
                 player.handle_input(ch)
             world.update(ticks)

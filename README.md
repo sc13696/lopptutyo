@@ -14,6 +14,7 @@ yhteys GitHubiin muodostetaan SSH:lla.
 - feature1
 -- revertoi debug-viestit kommistista
 - feature2
+-- arrow keys support
 - merge conflikti (featuret 1+2 ?)
 -- tee myös rebase ennen featureiden mergamista
 -- jemmaa stashiin debug-vesit
