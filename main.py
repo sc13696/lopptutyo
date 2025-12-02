@@ -5,8 +5,8 @@ from components.world import WorldCls
 from components.render import render, draw
 
 def main():
-    world = WorldCls(width=20, height=10)
-    player = PlayerCls(world, x=10, y=10-2)
+    world = WorldCls(width=30, height=10)
+    player = PlayerCls(world)
     ticks = 0
 
     try:

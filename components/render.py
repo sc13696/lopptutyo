@@ -36,7 +36,7 @@ class SceneCls:
 def render(world: WorldCls, player: PlayerCls) -> list[list[Tile]]:
     scene = SceneCls(world.width, world.height)
     scene.score = {"aliens":  len(world.aliens), "bullets": len(world.bullets)}
-    scene.game_over = False
+    scene.game_over = len(world.aliens) == 0
 
     for a in world.aliens:
         if 0 <= a["y"] < world.height:
@@ -62,7 +62,11 @@ def draw(scene: list[list[Tile]]):
     for row in rows:
         line = ''.join(row)
         lines.append(line)
-    lines.append("'WASD' to move, 'space' to shoot, 'q/ctr+c' to quit")
+    if scene.game_over:
+        lines.append(f"All aliens defeated! press 'R' to restart.")
+    else:
+        lines.append("'WASD' to move, 'space' to shoot")
+    lines.append("'q/ctr+c' to quit")
 
     clear()
     print('\n'.join(lines))
