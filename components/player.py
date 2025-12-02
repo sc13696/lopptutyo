@@ -2,10 +2,13 @@ from components.world import WorldCls
 from components.input import getch_nonblock, get_key
 
 class PlayerCls:
-    def __init__(self, world: WorldCls, x: int = 0, y: int = 0):
+    def __init__(self, world: WorldCls):
         self.world = world
-        self.x, self.y = x, y
         self.quit = False
+        self.reset()
+
+    def reset(self):
+        self.x, self.y = self.world.width//2, self.world.height-2
 
     def handle_input(self, ch: str):
         # shooting
@@ -23,10 +26,22 @@ class PlayerCls:
 
     def handle_key(self):
         ch = get_key()
-        # print(ch, '--', repr(ch))
+
+        # quit
+        if ch in (b'q', b'Q', b'\x03'):
+            self.quit = True
+
+        # reset
+        if ch in (b'r', b'R'):
+            self.reset()
+            self.world.reset()
+
+        # space
+        elif ch == b' ':
+            self.world.shoot_bullet(self.x, self.y)
 
         # WASD
-        if ch in (b'w', b'W'):
+        elif ch in (b'w', b'W'):
             if self.world.is_within(self.x, self.y - 1):
                 self.y -= 1
         elif ch in (b's', b'S'):
@@ -52,13 +67,5 @@ class PlayerCls:
         elif ch in (b'\x1b[C', b'\xe0M'):   # right
             if self.world.is_within(self.x + 1, self.y):
                 self.x += 1
-
-        # space
-        elif ch == b' ':
-            self.world.shoot_bullet(self.x, self.y)
-
-        # quit
-        elif ch in (b'q', b'Q', b'\x03'):
-            self.quit = True
 
         return ch

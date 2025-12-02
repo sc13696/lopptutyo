@@ -2,7 +2,10 @@
 class WorldCls:
     def __init__(self, width: int = 20, height: int = 10):
         self.width, self.height = width, height
-        self.aliens = [{"x": x, "y": y} for y in range(2,5) for x in range(5, width-5, 3)]
+        self.reset()
+
+    def reset(self):
+        self.aliens = [{"x": x, "y": y} for y in range(2,5) for x in range(5, self.width-5, 3)]
         self.bullets = []
         self.direction = 1  # move right
 
